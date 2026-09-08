@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* Self-hosted latin subsets (copied to public/fonts from @fontsource) */
+@font-face {
+  font-family: "Sora Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/sora-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+}
+
+/* Explicit sources — auto-detection silently fails without a git repo */
+@source "./";
+@source "../index.html";
+
+@theme {
+  /* — Surfaces — */
+  --color-paper: #f7f5f1;
+  --color-paper-deep: #efece5;
+  --color-ink: #16233a;
+  --color-ink-deep: #0f1929;
+  --color-ink-raise: #1e2d49;
+
+  /* — Accent: terracotta (clay) — */
+  --color-clay: #d9622b;
+  --color-clay-deep: #bc5221;
+  --color-clay-bright: #e8845a;
+  --color-clay-soft: #f7e6db;
+
+  /* — Semantic: scores only — */
+  --color-moss: #3e7c59;
+  --color-moss-soft: #e7efe9;
+
+  /* — Type — */
+  --font-sans: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* — Shadows (warm-tinted, never grey) — */
+  --shadow-card: 0 1px 2px rgb(22 35 58 / 0.05), 0 8px 24px -12px rgb(22 35 58 / 0.12);
+  --shadow-float: 0 2px 4px rgb(22 35 58 / 0.06), 0 20px 48px -16px rgb(22 35 58 / 0.22);
+
+  --animate-marquee: marquee 46s linear infinite;
+  --animate-ping-ring: ping-ring 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-breathe: breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* SVG pulse rings — transform-box is the critical bit */
+@keyframes ping-ring {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.55;
+  }
+  80%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: "ss01" on;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-clay) 22%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-clay);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .ping-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
