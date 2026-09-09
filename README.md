@@ -4,7 +4,7 @@ Single-page marketing site for **TriNetra-NER**, Team-Hope's Smart India Hackath
 
 Built with **React 19 + Vite 7 + Tailwind CSS v4 + Framer Motion (`motion`)**. No map SDKs, no API keys, zero raster images — every visual is inline SVG or CSS.
 
-## Quick start
+## Quick start **
 
 ```bash
 npm install
